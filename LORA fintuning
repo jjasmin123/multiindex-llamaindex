@@ -17,12 +17,12 @@ training_data = load_dataset(data_name, split="train")
 base_model_name = "NousResearch/Llama-2-7b-chat-hf"
 refined_model = "llama-2-7b-mlabonne-enhanced"
 
-# Tokenizer
+##################### Tokenizer
 llama_tokenizer = AutoTokenizer.from_pretrained(base_model_name, trust_remote_code=True)
 llama_tokenizer.pad_token = llama_tokenizer.eos_token
 llama_tokenizer.padding_side = "right"  # Fix for fp16
 
-# Quantization Config
+################# Quantization Config
 quant_config = BitsAndBytesConfig(
     load_in_4bit=True,
     bnb_4bit_quant_type="nf4",
@@ -39,7 +39,7 @@ base_model = AutoModelForCausalLM.from_pretrained(
 base_model.config.use_cache = False
 base_model.config.pretraining_tp = 1
 
-## Quantization Configurations
+############################ Quantization Configurations
 
 # LoRA Config
 peft_parameters = LoraConfig(
@@ -49,7 +49,7 @@ peft_parameters = LoraConfig(
     bias="none",
     task_type="CAUSAL_LM"
 )
-# Training Params
+########################## Training Params
 train_params = TrainingArguments(
     output_dir="./results_modified",
     num_train_epochs=1,
@@ -68,7 +68,7 @@ train_params = TrainingArguments(
     group_by_length=True,
     lr_scheduler_type="constant"
 )
-# Trainer
+########################### Trainer
 fine_tuning = SFTTrainer(
     model=base_model,
     train_dataset=training_data,
