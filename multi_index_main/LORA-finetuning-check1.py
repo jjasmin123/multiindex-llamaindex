@@ -84,7 +84,7 @@ fine_tuning.model.save_pretrained(refined_model)
 
 ##########################  The model is trained using the SFTTrainer, which is specifically designed for this kind of task.
 # Generate Text
-query = "How do I use the OpenAI API?"
+query = "Please provide the catalyst recommendations for 9200?"
 text_gen = pipeline(task="text-generation", model=refined_model, tokenizer=llama_tokenizer, max_length=200)
 output = text_gen(f"<s>[INST] {query} [/INST]")
 print(output[0]['generated_text'])
