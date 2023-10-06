@@ -10,7 +10,7 @@ from trl import SFTTrainer
 ############################################### Setting up the Model and Tokenizer
 
 # Dataset
-data_name = "mlabonne/guanaco-llama2-1k"   ## This is just example data
+data_name = "Training-data"   ## This is just example data
 training_data = load_dataset(data_name, split="train")
 
 # Model and tokenizer names
